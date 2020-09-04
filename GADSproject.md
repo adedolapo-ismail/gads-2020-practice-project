@@ -134,6 +134,7 @@ In this lab, you learn how to perform the following tasks:
 gcloud app create --project=$DEVSHELL_PROJECT_ID
 ```
 When prompted to select a region, select the region you want your App Engine application located in.
+
 4. Clone the source code repository for a sample application in the hello_world directory:
 ```
 git clone https://github.com/GoogleCloudPlatform/python-docs-samples
