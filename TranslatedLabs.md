@@ -218,6 +218,92 @@ If you refresh the browser window you used to view to the application site, you'
 
 ![404 error](https://cdn.qwiklabs.com/jVzvehqMDLGdJxcGG6aHjrT1zG6SRd443bZo%2BTO383I%3D)
 
+---
+# 3.Google Cloud Fundamentals: Getting Started with Google Kubernetes Engine 
+---
+### Overview
+In this lab, you create a Google Kubernetes Engine cluster containing several containers, each containing a web server. You place a load balancer in front of the cluster and view its contents.
+### Objectives
+In this lab, you learn how to perform the following tasks:
+- Provision a Kubernetes cluster using Kubernetes Engine.
+- Deploy and manage Docker containers using kubectl.
+
+### Steps
+1. Set up the environmental variables by executing the following commands:
+```
+gcloud config set project <project id>
+```
+to set project
+```
+gcloud auth list
+``` 
+to confirm users that have access to the current project
+```
+gcloud config set compute/zone us-central1-a
+``` 
+to set the preferred zone for deploying the kubernetes cluster
+```
+gcloud services enable container.googleapis.com
+``` 
+to enable the google kubernetes engine API
+```
+gcloud services enable containerregistry.googleapis.com
+``` 
+to enable the google container registry API
+
+2. Start a Kubernetes cluster managed by Kubernetes Engine. Name the cluster "gads-cluster" and configure it to run 3 nodes by running the following command:
+```
+gcloud container clusters create [YOUR-CLUSTER-NAME] --zone us-central1-a --num-nodes 3
+```
+
+3. After cluster creation, confirm the installed version of Kubernetes by running this command:
+```
+kubectl version
+```
+(`kubectl` is the command used to execute actions in a kubernetes cluster)
+
+4. Confirm that there are 3 running nodes as declared in the cluster creation by viewing in the GCP Console. On the Navigation menu (Navigation menu), click Compute Engine > VM Instances. OR running the command:
+```
+kubectl get pods
+```
+
+5. From your Cloud Shell prompt, we can launch our application but we would be using a single instance of the nginx container using this command:
+```
+kubectl create deploy nginx --image=nginx:1.17.10
+```
+(only one pod is created)
+
+6. The created pod needs to be exposed to the internet by running the following command:
+```
+kubectl expose deployment nginx --port 80 --type LoadBalancer
+```
+
+7. To confirm if our pod is accessible via the internet, we need to retrieve the external IP and we would run the following command:
+```
+kubectl get services
+```
+Copy the external IP and paste on a new tab in your browser.
+
+8. As more traffic is generated on our new web app, it is important to scale up the number of running pods to prevent downtime and we would run the following command:
+```
+kubectl scale deployment nginx --replicas 3
+```
+
+9. Confirm that the number of nodes has been scaled by running this command again:
+```
+kubectl get pods
+```
+
+10. Scaling of pods does not affect the IP address and you can confirm by running this command again:
+```
+kubectl get services
+```
+
+11. After this session, clean up by deleting resources. Run this command:
+```
+gcloud container clusters delete [YOUR-CLUSTER-NAME]
+```
+
 
 
 
