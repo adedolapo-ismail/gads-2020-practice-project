@@ -10,6 +10,11 @@
 8. GCP Fundamentals: Getting Started with App Engine
 9. GCP Fundamentals: Getting Started with Deployment Manager and Stackdriver
 10. GCP Fundamentals: Getting Started with BigQuery
+11. Implement Private Google Access and Cloud NAT
+12. Error Reporting and Debugging
+13. Resource Monitoring
+14. Cloud IAM
+15. Explore a Bigquery Public Dataset
 
 
 # Translated Labs
